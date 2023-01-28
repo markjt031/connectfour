@@ -21,18 +21,42 @@ class Game{
         }
     }
     addButtonListeners(playerColor){
-        let buttons=document.getElementsByClassName("place-piece-button");
+        let buttons=document.getElementsByClassName(playerColor);
         for (let i=0; i<this.columns;i++){
             let columnNumber=buttons[i].id.toString();
+            //this.changeButtonColor(buttons[i], playerColor);
             buttons[i].addEventListener("click", ()=>this.placePiece(playerColor,columnNumber))
+        }
+    }
+   
+    changeButtonColor(button, color){
+        if (color==="red"){
+            if (button.classList.contains(color)){
+                return;
+            }
+            else{
+                button.classList.replace("yellow", color);
+            }
+        }
+        if (color==="yellow"){
+            if (button.classList.contains(color)){
+                return;
+            }
+            else{
+                button.classList.replace("red", color)
+            }
         }
     }
     playGame(){
         this.populateGrid();
+        this.addButtonListeners("red");
+        this.addButtonListeners("yellow")
+        
         //this.placePiece("red", 0);
         //this.placePiece("yellow", 0);
        // this.placePiece("red", 6);
-       this.addButtonListeners("red");
+       //this.takeTurns("red");
+       //this.takeTurns("yellow");
     }
     placePiece(color, columnNumber){
         console.log("I'm running")
@@ -44,6 +68,23 @@ class Game{
                 break;
             }
         }
+        if (color==="red"){
+            this.swapButtons(color,"yellow");
+        }
+        if (color==="yellow"){
+            this.swapButtons(color, "red")
+        }
+    }
+    swapButtons(color1, color2){
+        let buttonSetOriginal=document.querySelector(".game-buttons-"+color1);
+        buttonSetOriginal.classList.add("hidden");
+        let buttonSetNew=document.querySelector(".game-buttons-"+color2);
+        buttonSetNew.classList.remove("hidden")
+
+    }
+    takeTurns(color){
+        //this.addButtonListeners(color);
+
     }
 }
 class GridTile{
