@@ -68,6 +68,8 @@ class Game{
                 break;
             }
         }
+        this.checkWin(color);
+        this.winMessage();
         if (color==="red"){
             this.swapButtons(color,"yellow");
         }
@@ -86,6 +88,103 @@ class Game{
         //this.addButtonListeners(color);
 
     }
+    checkWin(color){
+        console.log("Let's check our win")
+        console.log(color)
+        for (let i=this.rows-1; i>=0; i--){
+            //console.log("I'm in the loop")
+            for (let j=this.columns-1; j>=0; j--){
+                //console.log("I'm in the second loop")
+                //console.log(this.grid[i][j].color);
+                if (this.grid[i][j].color===color){
+                    if (j-3>=0){
+                        //Horizontal
+                        if (this.grid[i][j-1].color===color && this.grid[i][j-2].color===color && this.grid[i][j-3].color===color){
+                            console.log("horizontal win")
+                            this.gameWon=true;
+                        }
+                        //Diagonal(top left-bottom right)
+                        if(i-3>=0){
+                            if (this.grid[i-1][j-1].color===color && this.grid[i-2][j-2].color===color && this.grid[i-3][j-3].color===color){
+                                this.gameWon=true;
+                                console.log("diagonalWin")
+                            }
+                        }
+                    }
+
+                    if (i-3>=0){
+                        //Vertical
+                        if (this.grid[i-1][j].color===color && this.grid[i-2][j].color===color && this.grid[i-3][j].color===color){
+                            this.gameWon=true;
+                            console.log("vertical win")
+                        }
+                        //Opposite Diagonal
+                        if (j+3<=6){
+                            if (this.grid[i-1][j+1].color===color&& this.grid[i-2][j+2].color===color &&this.grid[i-3][j+3].color===color){
+                                this.gameWon=true;
+                                console.log("opposite diagonal win")
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        this.winMessage();
+    }
+    winMessage(){
+        console.log("Call me! I'll arrive, you can call me any any time.")
+        console.log(this.gameWon)
+        if (this.gameWon===true){
+            console.log("Winner winner chicken dinner");
+        }
+    }
+//     checkAdjacent(gridTile){
+//         let row=gridTile.rowPosition;
+//         let column=gridTile.columnPosition;
+//         let color=gridTile.color;
+//         let count=0;
+//         if (this.color===""){
+//             return count;
+//         }
+//         //If piece is bottom right corner, check left, top, and left-top diagonal
+//         if (row===this.rows-1 && column==this.columns-1){
+//             //check top
+//             if (this.grid[row-1][column].color===color){
+//                 count++;
+//                 this.checkAdjacent(this.grid[row-1][column])
+//             }
+//             //check left
+//             if (this.grid[row][column-1].color===color){
+//                 count++;
+//                 this.checkAdjacent(this.grid[row][column-1])
+//             }
+//             //check top left
+//             if (this.grid[row-1][column-1].color===color){
+//                 count++;
+//                 this.checkAdjacent(this.grid[row-1][column-1])
+//             }
+//             //check top right
+//             if (column+1<=this.columns-1 && this.grid[row][column+1]===)
+//         }
+//         //If piece is on the right edge of grid, but not in a corner
+//         if (column===this.columns-1 && row!==0){
+//             if (this.grid[row-1][column].color===color){
+//                 count++;
+//                 this.checkAdjacent(this.grid[row-1][column])
+//             }
+//             //check left
+//             if (this.grid[row][column-1].color===color){
+//                 count++;
+//                 this.checkNeighbots(this.grid[row][column-1])
+//             }
+//             //check top left
+//             if (this.grid[row-1][column-1].color===color){
+//                 count++;
+//                 this.checkNeighbors(this.grid[row-1][column-1])
+//             }
+//         }
+//     }
 }
 class GridTile{
     constructor(rowPosition, columnPosition, htmlTile){
