@@ -24,6 +24,7 @@ class Game{
         this.populateGrid();
         this.placePiece("red", 0);
         this.placePiece("yellow", 0);
+        this.placePiece("red", 6);
     }
     placePiece(color, columnNumber){
         for (let i=this.rows-1; i>=0; i--){

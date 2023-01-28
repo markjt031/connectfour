@@ -8,6 +8,24 @@
     flex-wrap: wrap;
     /* justify-content: space-evenly; */
 }
+#game-buttons{
+    width: 350px;
+    margin: 0 auto;
+    display: flex;
+}
+.place-piece-button{
+    background-color: white;
+    border: none;
+    width: 50px;
+    height: 49px;
+    margin: none;
+    padding: none;
+    border-radius: 50%;
+
+}
+.red:hover{
+    background: red;
+}
 .tile{
     background-color: white;
     height: 16%;
