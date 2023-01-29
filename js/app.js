@@ -44,9 +44,6 @@ class Game{
             rulesSection.classList.add("hidden");
         }
     }
-    playGame(){
-        this.addButtonListeners()
-    }
     startButtonHandler(){
         //Reveals color selection menu
         document.querySelector("#select-color").classList.remove("hidden")
@@ -74,6 +71,7 @@ class Game{
         if (this.playerColorChoice==="yellow"){
             document.querySelector("#game-message").style.color="yellow"
         }
+        document.querySelector("header").style.margin="0 auto"
 
     }
     placePiece(color, columnNumber){
@@ -100,6 +98,12 @@ class Game{
             }
         }
     }
+    playGame(){
+        this.addButtonListeners()
+    }
+   
+    
+    
     swapButtons(color1, color2){
         let buttonSetOriginal=document.querySelector(".game-buttons-"+color1);
         buttonSetOriginal.classList.add("hidden");
@@ -177,8 +181,10 @@ class Game{
     resetBoard(){
         this.grid=[]
         this.gameWon=false
+        playerColorChoice=""
         document.querySelector("#game-board").classList.add("hidden")
-        document.querySelector()
+        document.querySelector("#start-game").classList.remove("hidden")
+        
         //this.populateGrid();
     }
 
