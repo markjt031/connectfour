@@ -21,38 +21,19 @@ class Game{
             this.grid.push(row);
         }
     }
-    addButtonListeners(playerColor){
-        let buttons=document.getElementsByClassName(playerColor);
-        for (let i=0; i<this.columns;i++){
-            let columnNumber=buttons[i].id.toString();
-            //this.changeButtonColor(buttons[i], playerColor);
-            buttons[i].addEventListener("click", ()=>this.placePiece(playerColor,columnNumber))
-        }
-    }
-   
-    changeButtonColor(button, color){
-        if (color==="red"){
-            if (button.classList.contains(color)){
-                return;
-            }
-            else{
-                button.classList.replace("yellow", color);
-            }
-        }
-        if (color==="yellow"){
-            if (button.classList.contains(color)){
-                return;
-            }
-            else{
-                button.classList.replace("red", color)
-            }
-        }
-    }
-    startButton(){
+    addButtonListeners(){
         document.querySelector(".start-game").addEventListener("click", ()=>this.startButtonHandler())
-    }
-    rulesButton(){
         document.querySelector(".rules").addEventListener("click", ()=>this.rulesButtonHandler())
+        let redButtons=document.getElementsByClassName("red");
+        let yellowButtons=document.getElementsByClassName("yellow")
+        for (let i=0; i<this.columns;i++){
+            let columnNumber=redButtons[i].id.toString();
+            redButtons[i].addEventListener("click", ()=>this.placePiece("red",columnNumber))
+            yellowButtons[i].addEventListener("click", ()=>this.placePiece("yellow", columnNumber))
+        }
+        document.querySelector(".choose-red").addEventListener("click", (e)=>this.chooseColor(e))
+        document.querySelector(".choose-yellow").addEventListener("click", (e)=>this.chooseColor(e))
+
     }
     rulesButtonHandler(){
         let rulesSection=document.querySelector(".rules-section")
@@ -64,28 +45,13 @@ class Game{
         }
     }
     playGame(){
-        
-        this.startButton();
-        this.rulesButton();
-        this.addButtonListeners("red")
-        this.addButtonListeners("yellow")
-       
-        
-        //this.placePiece("red", 0);
-        //this.placePiece("yellow", 0);
-       // this.placePiece("red", 6);
-       //this.takeTurns("red");
-       //this.takeTurns("yellow");
+        this.addButtonListeners()
     }
     startButtonHandler(){
+        //Reveals color selection menu
         document.querySelector("#select-color").classList.remove("hidden")
-        document.querySelector(".choose-red").addEventListener("click", (e)=>this.chooseColor(e))
-        document.querySelector(".choose-yellow").addEventListener("click", (e)=>this.chooseColor(e))
         document.querySelector("#start-game").classList.add("hidden");
-        //document.querySelector(".start-game").removeEventListener("click", startButtonHandler)
-       
-        //this.addButtonListeners("red");
-        //this.addButtonListeners("yellow")
+        
     }
     chooseColor(e){
         let redButton=document.querySelector(".game-buttons-red")
@@ -148,10 +114,7 @@ class Game{
         }
 
     }
-    takeTurns(color){
-        //this.addButtonListeners(color);
 
-    }
     checkWin(color){
         console.log("Let's check our win")
         console.log(color)
@@ -214,7 +177,9 @@ class Game{
     resetBoard(){
         this.grid=[]
         this.gameWon=false
-        this.populateGrid();
+        document.querySelector("#game-board").classList.add("hidden")
+        document.querySelector()
+        //this.populateGrid();
     }
 
 }
