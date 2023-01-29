@@ -47,6 +47,7 @@ class Game{
             }
         }
     }
+    
     playGame(){
         this.populateGrid();
         this.addButtonListeners("red");
@@ -68,13 +69,18 @@ class Game{
                 break;
             }
         }
+        //Immediately after placing piece, check for win.
         this.checkWin(color);
         this.winMessage();
-        if (color==="red"){
-            this.swapButtons(color,"yellow");
-        }
-        if (color==="yellow"){
-            this.swapButtons(color, "red")
+        this.endGame();
+        if (this.gameWon===false){
+            //Swap colors after piece is placed
+            if (color==="red"){
+                this.swapButtons(color,"yellow");
+            }
+            if (color==="yellow"){
+                this.swapButtons(color, "red")
+            }
         }
     }
     swapButtons(color1, color2){
@@ -130,7 +136,7 @@ class Game{
             }
 
         }
-        this.winMessage();
+        
     }
     winMessage(){
         console.log("Call me! I'll arrive, you can call me any any time.")
@@ -138,6 +144,16 @@ class Game{
         if (this.gameWon===true){
             console.log("Winner winner chicken dinner");
         }
+    }
+    endGame(){
+        if (this.gameWon===true){
+            document.querySelector(".game-buttons").classList.add("hidden");
+        }
+    }
+    resetBoard(){
+        this.grid=[]
+        this.gameWon=false
+        this.populateGrid();
     }
 //     checkAdjacent(gridTile){
 //         let row=gridTile.rowPosition;
