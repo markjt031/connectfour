@@ -51,9 +51,22 @@ class Game{
     startButton(){
         document.querySelector(".start-game").addEventListener("click", ()=>this.startButtonHandler())
     }
+    rulesButton(){
+        document.querySelector(".rules").addEventListener("click", ()=>this.rulesButtonHandler())
+    }
+    rulesButtonHandler(){
+        let rulesSection=document.querySelector(".rules-section")
+        if (rulesSection.classList.contains("hidden")){
+            rulesSection.classList.remove("hidden");
+        }
+        else {
+            rulesSection.classList.add("hidden");
+        }
+    }
     playGame(){
         
         this.startButton();
+        this.rulesButton();
         this.addButtonListeners("red")
         this.addButtonListeners("yellow")
        
@@ -192,52 +205,7 @@ class Game{
         this.gameWon=false
         this.populateGrid();
     }
-//     checkAdjacent(gridTile){
-//         let row=gridTile.rowPosition;
-//         let column=gridTile.columnPosition;
-//         let color=gridTile.color;
-//         let count=0;
-//         if (this.color===""){
-//             return count;
-//         }
-//         //If piece is bottom right corner, check left, top, and left-top diagonal
-//         if (row===this.rows-1 && column==this.columns-1){
-//             //check top
-//             if (this.grid[row-1][column].color===color){
-//                 count++;
-//                 this.checkAdjacent(this.grid[row-1][column])
-//             }
-//             //check left
-//             if (this.grid[row][column-1].color===color){
-//                 count++;
-//                 this.checkAdjacent(this.grid[row][column-1])
-//             }
-//             //check top left
-//             if (this.grid[row-1][column-1].color===color){
-//                 count++;
-//                 this.checkAdjacent(this.grid[row-1][column-1])
-//             }
-//             //check top right
-//             if (column+1<=this.columns-1 && this.grid[row][column+1]===)
-//         }
-//         //If piece is on the right edge of grid, but not in a corner
-//         if (column===this.columns-1 && row!==0){
-//             if (this.grid[row-1][column].color===color){
-//                 count++;
-//                 this.checkAdjacent(this.grid[row-1][column])
-//             }
-//             //check left
-//             if (this.grid[row][column-1].color===color){
-//                 count++;
-//                 this.checkNeighbots(this.grid[row][column-1])
-//             }
-//             //check top left
-//             if (this.grid[row-1][column-1].color===color){
-//                 count++;
-//                 this.checkNeighbors(this.grid[row-1][column-1])
-//             }
-//         }
-//     }
+
 }
 class GridTile{
     constructor(rowPosition, columnPosition, htmlTile){

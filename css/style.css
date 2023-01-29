@@ -33,6 +33,12 @@ menu{
 .choose-red, .choose-yellow{
     width: 45%;
 }
+.choose-red{
+    background: red;
+}
+.choose-yellow{
+    background: yellow;
+}
 .game-buttons{
     width: 50%;
     margin: 0 auto;
