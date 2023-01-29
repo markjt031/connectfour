@@ -101,7 +101,13 @@ class Game{
         document.querySelector("#game-board").classList.remove("hidden")
         document.querySelector("#select-color").classList.add("hidden");
         this.populateGrid();
-        
+        document.querySelector("#game-message").innerText=`${this.playerColorChoice} Player: Place your piece!`
+        if (this.playerColorChoice==="red"){
+            document.querySelector("#game-message").style.color="#FF8B8B"
+        }
+        if (this.playerColorChoice==="yellow"){
+            document.querySelector("#game-message").style.color="yellow"
+        }
 
     }
     placePiece(color, columnNumber){
@@ -116,7 +122,7 @@ class Game{
         }
         //Immediately after placing piece, check for win.
         this.checkWin(color);
-        this.winMessage();
+        this.winMessage(color);
         this.endGame();
         if (this.gameWon===false){
             //Swap colors after piece is placed
@@ -133,6 +139,13 @@ class Game{
         buttonSetOriginal.classList.add("hidden");
         let buttonSetNew=document.querySelector(".game-buttons-"+color2);
         buttonSetNew.classList.remove("hidden")
+        document.querySelector("#game-message").innerText=`${color2} Player: Place your piece!`
+        if (color2==="red"){
+            document.querySelector("#game-message").style.color="#FF8B8B"
+        }
+        if (color2==="yellow"){
+            document.querySelector("#game-message").style.color="yellow"
+        }
 
     }
     takeTurns(color){
@@ -151,14 +164,14 @@ class Game{
                     if (j-3>=0){
                         //Horizontal
                         if (this.grid[i][j-1].color===color && this.grid[i][j-2].color===color && this.grid[i][j-3].color===color){
-                            console.log("horizontal win")
                             this.gameWon=true;
+                            break;
                         }
                         //Diagonal(top left-bottom right)
                         if(i-3>=0){
                             if (this.grid[i-1][j-1].color===color && this.grid[i-2][j-2].color===color && this.grid[i-3][j-3].color===color){
                                 this.gameWon=true;
-                                console.log("diagonalWin")
+                                break;
                             }
                         }
                     }
@@ -167,13 +180,13 @@ class Game{
                         //Vertical
                         if (this.grid[i-1][j].color===color && this.grid[i-2][j].color===color && this.grid[i-3][j].color===color){
                             this.gameWon=true;
-                            console.log("vertical win")
+                            break;
                         }
                         //Opposite Diagonal
                         if (j+3<=6){
                             if (this.grid[i-1][j+1].color===color&& this.grid[i-2][j+2].color===color &&this.grid[i-3][j+3].color===color){
                                 this.gameWon=true;
-                                console.log("opposite diagonal win")
+                                break;
                             }
                         }
                     }
@@ -183,11 +196,9 @@ class Game{
         }
         
     }
-    winMessage(){
-        console.log("Call me! I'll arrive, you can call me any any time.")
-        console.log(this.gameWon)
+    winMessage(color){
         if (this.gameWon===true){
-            console.log("Winner winner chicken dinner");
+            document.querySelector("#game-message").innerText=`${color} wins!`
         }
     }
     endGame(){

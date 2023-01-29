@@ -10,6 +10,11 @@ h1{
     margin: 0 auto;
     font-size: 6vw;
 }
+#game-message{
+    border: solid 1px black;
+    width: 50%;
+    margin: 0 auto;
+}
 .game-board{
     aspect-ratio: 7 / 6;
     width: 50%;
