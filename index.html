@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <h1>Connect 4</h1>
-    <h2 id="game-message"></h2>
+    <header>
+        <h1>Connect 4</h1>
+        <h2 id="game-message"></h2>
+    </header>
+
     <div class="game-buttons game-buttons-red hidden">
         <input type="button" class="place-piece-button red" id="0">
         <input type="button" class="place-piece-button red" id="1">
@@ -28,16 +31,25 @@
         <input type="button" class="place-piece-button yellow" id="5">
         <input type="button" class="place-piece-button yellow" id="6">
     </div>
-    <div id="game-board"></div>
     <div id="start-game">
-        <input type="button" value="Start Game"class="start-game">
-        <input type="button" value="Rules" class="rules">
+        <menu class="start-menu">
+            <input type="button" value="Start Game"class="start-game">
+            <input type="button" value="Rules" class="rules">
+        </menu>
+    </div>
+    <div class="rules">
+
     </div>
     <div id="select-color" class="hidden">
         <p>Select the color for player 1</p>
-        <input type="button" value="Red" class="choose-red">
-        <input type="button" value="Yellow" class="choose-yellow">
+        <menu class="color-menu">
+            
+            <input type="button" value="Red" class="choose-red">
+            <input type="button" value="Yellow" class="choose-yellow">
+        </menu>
     </div>
+    <div id="game-board" class="game-board hidden"></div>
+    
     <script type="text/javascript" src="./js/app.js"></script>
     
 </body>

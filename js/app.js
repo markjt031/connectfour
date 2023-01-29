@@ -52,7 +52,7 @@ class Game{
         document.querySelector(".start-game").addEventListener("click", ()=>this.startButtonHandler())
     }
     playGame(){
-        this.populateGrid();
+        
         this.startButton();
         this.addButtonListeners("red")
         this.addButtonListeners("yellow")
@@ -68,6 +68,7 @@ class Game{
         document.querySelector("#select-color").classList.remove("hidden")
         document.querySelector(".choose-red").addEventListener("click", (e)=>this.chooseColor(e))
         document.querySelector(".choose-yellow").addEventListener("click", (e)=>this.chooseColor(e))
+        document.querySelector("#start-game").classList.add("hidden");
         //document.querySelector(".start-game").removeEventListener("click", startButtonHandler)
        
         //this.addButtonListeners("red");
@@ -84,7 +85,10 @@ class Game{
             yellowButton.classList.remove("hidden")
             this.playerColorChoice="yellow"
         }
+        document.querySelector("#game-board").classList.remove("hidden")
         document.querySelector("#select-color").classList.add("hidden");
+        this.populateGrid();
+        
 
     }
     placePiece(color, columnNumber){
