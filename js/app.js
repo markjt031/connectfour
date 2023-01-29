@@ -5,6 +5,7 @@ class Game{
         this.rows=6;
         this.columns=7
         this.board=document.getElementById("game-board")
+        this.playerColorChoice=""
     }
     populateGrid(){
         for (let i=0; i<this.rows; i++){
@@ -47,17 +48,44 @@ class Game{
             }
         }
     }
-    
+    startButton(){
+        document.querySelector(".start-game").addEventListener("click", ()=>this.startButtonHandler())
+    }
     playGame(){
         this.populateGrid();
-        this.addButtonListeners("red");
+        this.startButton();
+        this.addButtonListeners("red")
         this.addButtonListeners("yellow")
+       
         
         //this.placePiece("red", 0);
         //this.placePiece("yellow", 0);
        // this.placePiece("red", 6);
        //this.takeTurns("red");
        //this.takeTurns("yellow");
+    }
+    startButtonHandler(){
+        document.querySelector("#select-color").classList.remove("hidden")
+        document.querySelector(".choose-red").addEventListener("click", (e)=>this.chooseColor(e))
+        document.querySelector(".choose-yellow").addEventListener("click", (e)=>this.chooseColor(e))
+        //document.querySelector(".start-game").removeEventListener("click", startButtonHandler)
+       
+        //this.addButtonListeners("red");
+        //this.addButtonListeners("yellow")
+    }
+    chooseColor(e){
+        let redButton=document.querySelector(".game-buttons-red")
+        let yellowButton=document.querySelector(".game-buttons-yellow")
+        if (e.target.classList.contains("choose-red")){
+            redButton.classList.remove("hidden")
+            this.playerColorChoice="red"
+        }
+        if (e.target.classList.contains("choose-yellow")){
+            yellowButton.classList.remove("hidden")
+            this.playerColorChoice="yellow"
+        }
+        document.querySelector("#select-color").classList.add("hidden");
+
     }
     placePiece(color, columnNumber){
         console.log("I'm running")
@@ -147,7 +175,12 @@ class Game{
     }
     endGame(){
         if (this.gameWon===true){
-            document.querySelector(".game-buttons").classList.add("hidden");
+            let buttons=document.getElementsByClassName("game-buttons")
+            for(let i=0; i<buttons.length; i++){
+                if (buttons[i].classList.contains("hidden")===false){
+                    buttons[i].classList.add("hidden");
+                }
+            }
         }
     }
     resetBoard(){
@@ -213,7 +246,4 @@ class GridTile{
 }
 
 const game=new Game;
-//game.populateGrid();
-//console.log(game.grid)
-game.playGame();
-console.log(game.board)
+game.playGame()
