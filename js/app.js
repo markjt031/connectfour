@@ -21,6 +21,7 @@ class Game{
         }
     }
     clearGrid(){
+        //I feel like this way of clearing out the board leaves a lot of garbage behind.
         while (this.board.hasChildNodes()){
             this.board.removeChild(this.board.firstChild);
         }
@@ -40,7 +41,7 @@ class Game{
         document.querySelector(".reset").addEventListener("click", ()=>this.resetBoard())
     }
     rulesButtonHandler(){
-        let rulesSection=document.querySelector(".rules-section")
+        let rulesSection=document.querySelector(".rules-section");
         if (rulesSection.classList.contains("hidden")){
             rulesSection.classList.remove("hidden");
         }
@@ -50,34 +51,38 @@ class Game{
     }
     startButtonHandler(){
         //Reveals color selection menu
-        document.querySelector("#select-color").classList.remove("hidden")
+        document.querySelector("#select-color").classList.remove("hidden");
         document.querySelector("#start-game").classList.add("hidden");
         
     }
     chooseColor(e){
-        let redButton=document.querySelector(".game-buttons-red")
-        let yellowButton=document.querySelector(".game-buttons-yellow")
+        let redButton=document.querySelector(".game-buttons-red");
+        let yellowButton=document.querySelector(".game-buttons-yellow");
         if (e.target.classList.contains("choose-red")){
-            redButton.classList.remove("hidden")
-            this.playerColorChoice="red"
+            redButton.classList.remove("hidden");
+            this.playerColorChoice="red";
         }
         if (e.target.classList.contains("choose-yellow")){
-            yellowButton.classList.remove("hidden")
-            this.playerColorChoice="yellow"
+            yellowButton.classList.remove("hidden");
+            this.playerColorChoice="yellow";
         }
-        document.querySelector("#game-board").classList.remove("hidden")
+        document.querySelector("#game-board").classList.remove("hidden");
         document.querySelector("#select-color").classList.add("hidden");
         this.populateGrid();
-        document.querySelector("#game-message").innerText=`${this.playerColorChoice} Player: Place your piece!`
-        if (this.playerColorChoice==="red"){
-            document.querySelector("#game-message").style.color="#FF8B8B"
-        }
-        if (this.playerColorChoice==="yellow"){
-            document.querySelector("#game-message").style.color="yellow"
-        }
-        document.querySelector("header").style.margin="0 auto"
+        this.displayTurnMessage(this.playerColorChoice);
+        document.querySelector("header").style.margin="0 auto";
         document.querySelector(".reset").classList.remove("hidden");
 
+    }
+    displayTurnMessage(color){
+        let message=document.querySelector("#game-message")
+        message.innerText=`${color} Player: Place your piece`
+        if (color==="red"){
+            message.style.color="#FF8B8B"
+        }
+        if (color==="yellow"){
+            message.style.color="yellow"
+        }
     }
     placePiece(color, columnNumber){
         console.log("I'm running")
@@ -95,18 +100,20 @@ class Game{
         this.endGame();
         if (this.gameWon===false){
             //Swap colors after piece is placed
-            if (color==="red"){
-                this.swapButtons(color,"yellow");
-            }
-            if (color==="yellow"){
-                this.swapButtons(color, "red")
-            }
+            this.takeTurns(color);
         }
     }
     playGame(){
         this.addButtonListeners()
     }
-   
+   takeTurns(color){
+    if (color==="red"){
+        this.swapButtons(color,"yellow");
+    }
+    if (color==="yellow"){
+        this.swapButtons(color, "red")
+    }
+   }
     
     
     swapButtons(color1, color2){
@@ -114,13 +121,7 @@ class Game{
         buttonSetOriginal.classList.add("hidden");
         let buttonSetNew=document.querySelector(".game-buttons-"+color2);
         buttonSetNew.classList.remove("hidden")
-        document.querySelector("#game-message").innerText=`${color2} Player: Place your piece!`
-        if (color2==="red"){
-            document.querySelector("#game-message").style.color="#FF8B8B"
-        }
-        if (color2==="yellow"){
-            document.querySelector("#game-message").style.color="yellow"
-        }
+        this.displayTurnMessage(color2);
 
     }
 
