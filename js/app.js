@@ -16,9 +16,13 @@ class Game{
                 let tile=new GridTile(i, j, htmlTile);
                 row.push(tile);
                 this.board.appendChild(tile.htmlTile);
-                console.log(htmlTile);
             }
             this.grid.push(row);
+        }
+    }
+    clearGrid(){
+        while (this.board.hasChildNodes()){
+            this.board.removeChild(this.board.firstChild);
         }
     }
     addButtonListeners(){
@@ -33,7 +37,7 @@ class Game{
         }
         document.querySelector(".choose-red").addEventListener("click", (e)=>this.chooseColor(e))
         document.querySelector(".choose-yellow").addEventListener("click", (e)=>this.chooseColor(e))
-
+        document.querySelector(".reset").addEventListener("click", ()=>this.resetBoard())
     }
     rulesButtonHandler(){
         let rulesSection=document.querySelector(".rules-section")
@@ -72,6 +76,7 @@ class Game{
             document.querySelector("#game-message").style.color="yellow"
         }
         document.querySelector("header").style.margin="0 auto"
+        document.querySelector(".reset").classList.remove("hidden");
 
     }
     placePiece(color, columnNumber){
@@ -180,11 +185,13 @@ class Game{
     }
     resetBoard(){
         this.grid=[]
+        this.clearGrid();
         this.gameWon=false
-        playerColorChoice=""
+        this.playerColorChoice=""
         document.querySelector("#game-board").classList.add("hidden")
         document.querySelector("#start-game").classList.remove("hidden")
-        
+        document.querySelector(".reset").classList.add("hidden")
+        document.querySelector("#game-message").innerHTML=""
         //this.populateGrid();
     }
 
