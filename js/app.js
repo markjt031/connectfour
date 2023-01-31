@@ -6,6 +6,7 @@ class Game{
         this.columns=7
         this.board=document.getElementById("game-board")
         this.playerColorChoice=""
+        this.mode="single-player"
     }
     populateGrid(){
         for (let i=0; i<this.rows; i++){
@@ -86,6 +87,10 @@ class Game{
     }
     placePiece(color, columnNumber){
         console.log("I'm running")
+        //Don't place a piece if the top slot is full
+        if (this.grid[0][columnNumber].isEmpty===false){
+            this.placePiece(color, columnNumber)
+        }
         for (let i=this.rows-1; i>=0; i--){
             if (this.grid[i][columnNumber].isEmpty===true){
                 this.grid[i][columnNumber].color=color;
