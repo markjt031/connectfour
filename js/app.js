@@ -109,18 +109,35 @@ class Game{
         document.querySelector("#select-color").classList.add("hidden");
         this.populateGrid();
         this.displayTurnMessage(this.playerColorChoice);
+        document.querySelector("#game-message").classList.remove("hidden");
         document.querySelector("header").style.margin="0 auto";
         document.querySelector(".reset").classList.remove("hidden");
 
     }
     displayTurnMessage(color){
         let message=document.querySelector("#game-message")
-        message.innerText=`${color} Player: Place your piece`
-        if (color==="red"){
-            message.style.color="#FF8B8B"
+        if (this.singlePlayer===true){
+            if (color===this.playerColorChoice){
+                message.innerText=`${color} Player: Place your piece`
+                if (color==="red"){
+                    message.style.color="#FF8B8B"
+                }
+                if (color==="yellow"){
+                    message.style.color="yellow"
+                }
+            }
+            else {
+                message.innerText="Computer's Turn"
+            }
         }
-        if (color==="yellow"){
-            message.style.color="yellow"
+        if (this.singlePlayer===false){
+            message.innerText=`${color} Player: Place your piece`
+            if (color==="red"){
+                message.style.color="#FF8B8B"
+            }
+            if (color==="yellow"){
+                message.style.color="yellow"
+            }
         }
     }
     placePiece(color, columnNumber){
@@ -141,6 +158,7 @@ class Game{
         
         //Immediately after placing piece, check for win.
         this.checkWin(color);
+        console.log(this.gameWon)
         this.winMessage(color);
         this.endGame();
         if (this.gameWon===false){
@@ -154,7 +172,7 @@ class Game{
     takeTurns(color){
         if (this.singlePlayer===true){
             if (this.playerColorChoice==="red" && color==="red"){
-                //this.swapButtons(color, "yellow")
+               // this.swapButtons(color, "yellow")
                 this.computerTurn("yellow");
                 //this.swapButtons("yellow", color)
             }
@@ -162,9 +180,10 @@ class Game{
                 this.swapButtons("yellow", color)
             }
             if (this.playerColorChoice==="yellow" && color==="yellow"){
+                //this.swapButtons(color, "red")
                 this.computerTurn("red")
             }
-            if (this.playerColorChoice==="red" && color==="red"){
+            if (this.playerColorChoice==="yellow" && color==="red"){
                 this.swapButtons("red", color)
             }
         }
@@ -258,7 +277,11 @@ class Game{
             if (color2===this.playerColorChoice){
                 if (buttonSetNew.classList.contains("hidden")!=-1){
                     buttonSetNew.classList.remove("hidden");
+                    this.displayTurnMessage(color2);
                 }
+            }
+            else {
+                buttonSetOriginal.classList.add("hidden")
             }
         }
         else{
@@ -319,16 +342,34 @@ class Game{
                         if (this.grid[i][j-1].color===color && this.grid[i][j-2].color===color){
                             //Return possible winning locations
                             if (j+1<this.columns){
+                                //Check if winning spot is empty
                                 if (this.grid[i][j+1].isEmpty===true){
-                                    places.push(j+1)
+                                    //Check if spot beneath winning spot is full
+                                    if (i+1<this.rows){
+                                        if(this.grid[i+1][j+1].isEmpty==false){
+                                            places.push(j+1)
+                                        }
+                                    }
+                                    if (i===this.rows-1){
+                                        places.push(j+1)
+                                    }
                                 }
                             }
                             if (j-3>=0){
-                                if (this.grid[i][j-3].isEmpty===true){}
-                                    places.push(j-3);
+                                //Check if winning spot is empty
+                                if (this.grid[i][j-3].isEmpty===true){
+                                    //Check if spot beneath winning spot is full
+                                    if (i+1<this.rows){
+                                        if (this.grid[i+1][j+1].isEmpty===false){
+                                            places.push(j-3);
+                                        }
+                                    }
+                                    if (i===this.rows-1){
+                                        places.push(j-3)
+                                    }
                                 }
                             }
-
+                        }
                         //Diagonal(top left-bottom right)
                         if(i-3>=0){
                             if (this.grid[i-1][j-1].color===color && this.grid[i-2][j-2].color===color){
@@ -341,7 +382,7 @@ class Game{
                                     }
                                 }
                                 if (j-3>=0){
-                                    if (this.grid[i-2][j-3].isEmpty===false){
+                                    if (this.grid[i-2][j-3].isEmpty===false && this.grid[i-3][j-3].isEmpty===true){
                                         places.push(j-3)
                                     }
                                 }
@@ -364,7 +405,7 @@ class Game{
                                         places.push(j-1);
                                     }
                                 }
-                                if (this.grid[i-2][j+3].isEmpty===false){
+                                if (this.grid[i-2][j+3].isEmpty===false && this.grid[i-3][j+3].isEmpty===true){
                                     places.push(j+3)
                                 }
                             }
@@ -379,8 +420,16 @@ class Game{
     }
 
     winMessage(color){
+        
         if (this.gameWon===true){
+            console.log("call me")
             document.querySelector("#game-message").innerText=`${color} wins!`
+            if (color==="red"){
+                document.querySelector("#game-message").style.color="#FF8B8B"
+            }
+            if (color==="yellow"){
+                document.querySelector("#game-message").style.color="yellow"
+            }
         }
     }
     endGame(){
@@ -397,14 +446,19 @@ class Game{
         this.grid=[]
         this.placedPieces=[]
         this.clearGrid();
+        // if (this.singlePlayer===true){
+        //     document.querySelector(".game-buttons").classList.add("hidden")
+        // }
         this.singlePlayer=false;
         this.gameWon=false;
         this.difficulty="easy"
         this.playerColorChoice=""
         document.querySelector("#game-board").classList.add("hidden")
+        document.querySelector("header").style.margin="20% auto 0 auto"
+        document.querySelector("#game-message").classList.add("hidden")
         document.querySelector("#start-game").classList.remove("hidden")
         document.querySelector(".reset").classList.add("hidden")
-        document.querySelector("#game-message").innerHTML=""
+        
     }
 
 }

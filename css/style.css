@@ -15,7 +15,7 @@ h1{
 }
 #game-message{
     border: solid 1px black;
-    width: 40%;
+    width: 50%;
     margin: 0 auto;
     font-size: 2.5vw;
 }
@@ -56,6 +56,10 @@ menu{
     grid-template-columns: repeat(7, 1fr);
     
 }
+.mode{
+    width: 40%;
+    font-size: 2vw;
+}
 .hidden{
     display: none;
     visibility: none;
@@ -72,7 +76,7 @@ menu{
     width: 100%;
     aspect-ratio: 1 / 1;
     z-index: 3;
-    margin: -100% auto 0 auto;
+    margin: 0 auto;
     padding: none;
     border-radius: 50%;
 }
