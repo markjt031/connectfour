@@ -28,7 +28,6 @@ h1{
     margin: 0 auto;
     flex-wrap: wrap;
     z-index: 3;
-    /* justify-content: space-evenly; */
 }
 menu{
     padding: 0;
@@ -90,12 +89,12 @@ menu{
     padding: none;
     border-radius: 50%;
 }
-.piece{
-    width: 14%;
-    aspect-ratio: 1 / 1;
-    z-index: 1;
-    border-radius: 50%;
+.spacer{
+    width: 40%;
+    margin: 5.7% auto 0 auto;
+    
 }
+
 .red:hover{
     background: red;
     /* border: 1px solid black; */
@@ -121,23 +120,5 @@ menu{
     padding: none;
     border-radius: 50%;
 }
-.red-piece, .yellow-piece{
-    background-color: #666666;
-    border: none;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    z-index: 2;
-    margin: 0 auto;
-    padding: none;
-    border-radius: 50%;
-   
-}
-/* .red-piece:hover{
-    background: red;
-    border: 1px solid black;
-} */
-/* .yellow-piece:hover{
-    background: yellow;
-    /* border: 1px solid black;
-} */
+
 

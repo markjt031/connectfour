@@ -173,17 +173,24 @@ class Game{
         if (this.singlePlayer===true){
             if (this.playerColorChoice==="red" && color==="red"){
                // this.swapButtons(color, "yellow")
-                this.computerTurn("yellow");
+                document.querySelector(".game-buttons-"+color).classList.add("hidden")
+                document.querySelector(".spacer").classList.remove("hidden")
+                setTimeout(()=>this.computerTurn("yellow"),500);
                 //this.swapButtons("yellow", color)
             }
             if (this.playerColorChoice==="red" && color==="yellow"){
+                document.querySelector(".game-buttons-"+"red").classList.remove("hidden")
+                document.querySelector(".spacer").classList.add("hidden")
                 this.swapButtons("yellow", color)
             }
             if (this.playerColorChoice==="yellow" && color==="yellow"){
                 //this.swapButtons(color, "red")
-                this.computerTurn("red")
+                document.querySelector(".game-buttons-"+color).classList.add("hidden")
+                document.querySelector(".spacer").classList.add("hidden")
+                setTimeout(()=>this.computerTurn("red"), 500)
             }
             if (this.playerColorChoice==="yellow" && color==="red"){
+                document.querySelector(".game-buttons-"+"yellow").classList.remove("hidden")
                 this.swapButtons("red", color)
             }
         }
