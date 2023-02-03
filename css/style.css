@@ -15,18 +15,19 @@ h1{
 }
 #game-message{
     border: solid 1px black;
-    width: 50%;
+    width: 40%;
     margin: 0 auto;
     font-size: 2.5vw;
 }
 .game-board{
     aspect-ratio: 7 / 6;
-    width: 50%;
+    width: 40%;
     background-color: darkblue;
     border: solid 5px black;
     display: flex;
     margin: 0 auto;
     flex-wrap: wrap;
+    z-index: 3;
     /* justify-content: space-evenly; */
 }
 menu{
@@ -49,45 +50,45 @@ menu{
     background: yellow;
 }
 .game-buttons{
-    width: 50%;
+    width: 40%;
     margin: 0 auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     
 }
 .hidden{
     display: none;
     visibility: none;
 }
-#start-game{
+#start-game, #select-color, #select-mode, #select-difficulty{
     aspect-ratio: 7 / 6;
-    width: 50%;
-    background-color: #666666;
-    margin: 0 auto;
-}
-#select-color{
-    height: 300px;
-    width: 350px;
+    width: 40%;
     background-color: #666666;
     margin: 0 auto;
 }
 .place-piece-button{
     background-color: #666666;
     border: none;
-    width: 14%;
+    width: 100%;
     aspect-ratio: 1 / 1;
-    
-    margin: 0 auto;
+    z-index: 3;
+    margin: -100% auto 0 auto;
     padding: none;
     border-radius: 50%;
-
+}
+.piece{
+    width: 14%;
+    aspect-ratio: 1 / 1;
+    z-index: 1;
+    border-radius: 50%;
 }
 .red:hover{
     background: red;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 .yellow:hover{
     background: yellow;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 .tile{
     background-color: white;
@@ -97,3 +98,32 @@ menu{
     border-radius: 50%;
     
 }
+.column{
+    border: none;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    z-index: 2;
+    margin: 0 auto;
+    padding: none;
+    border-radius: 50%;
+}
+.red-piece, .yellow-piece{
+    background-color: #666666;
+    border: none;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    z-index: 2;
+    margin: 0 auto;
+    padding: none;
+    border-radius: 50%;
+   
+}
+/* .red-piece:hover{
+    background: red;
+    border: 1px solid black;
+} */
+/* .yellow-piece:hover{
+    background: yellow;
+    /* border: 1px solid black;
+} */
+

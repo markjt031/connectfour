@@ -14,22 +14,22 @@
     </header>
 
     <div class="game-buttons game-buttons-red hidden">
-        <input type="button" class="place-piece-button red" id="0">
-        <input type="button" class="place-piece-button red" id="1">
-        <input type="button" class="place-piece-button red" id="2">
-        <input type="button" class="place-piece-button red" id="3">
-        <input type="button" class="place-piece-button red" id="4">
-        <input type="button" class="place-piece-button red" id="5">
-        <input type="button" class="place-piece-button red" id="6">
+       <div class="column"><div class="red-piece" id="0"> </div><input type="button" class="place-piece-button red" id="0"></div>
+        <div class="column"><div class="red-piece" id="1"></div><input type="button" class="place-piece-button red" id="1"></div>
+       <div class="column"><div class="red-piece" id="2"></div><input type="button" class="place-piece-button red" id="2"></div>
+        <div class="column"><div class="red-piece" id="3"></div><input type="button" class="place-piece-button red" id="3"></div>
+        <div class="column"><div class="red-piece" id="4"></div><input type="button" class="place-piece-button red" id="4"></div>
+        <div class="column"><div class="red-piece" id="5"></div><input type="button" class="place-piece-button red" id="5"></div>
+        <div class="column"><div class="red-piece" id="6"></div><input type="button" class="place-piece-button red" id="6"></div>
     </div>
     <div class="game-buttons game-buttons-yellow hidden">
-        <input type="button" class="place-piece-button yellow" id="0">
-        <input type="button" class="place-piece-button yellow" id="1">
-        <input type="button" class="place-piece-button yellow" id="2">
-        <input type="button" class="place-piece-button yellow" id="3">
-        <input type="button" class="place-piece-button yellow" id="4">
-        <input type="button" class="place-piece-button yellow" id="5">
-        <input type="button" class="place-piece-button yellow" id="6">
+        <div class="column" id="0"><div class="yellow-piece" id="0"></div><input type="button" class="place-piece-button yellow" id="0"></div>
+        <div class="column" id="1"><div class="yellow-piece" id="1"></div><input type="button" class="place-piece-button yellow" id="1"></div>
+        <div class="column" id="2"><div class="yellow-piece" id="2"></div><input type="button" class="place-piece-button yellow" id="2"></div>
+        <div class="column" id="3"><div class="yellow-piece" id="3"></div><input type="button" class="place-piece-button yellow" id="3"></div>
+        <div class="column" id="4"><div class="yellow-piece" id="4"></div><input type="button" class="place-piece-button yellow" id="4"></div>
+        <div class="column" id="5"><div class="yellow-piece" id="5"></div><input type="button" class="place-piece-button yellow" id="5"></div>
+        <div class="column" id="6"><div class="yellow-piece" id="6"></div><input type="button" class="place-piece-button yellow" id="6"></div>
     </div>
     <div id="start-game">
         <menu class="start-menu">
@@ -53,6 +53,19 @@
             
             <input type="button" value="Red" class="choose-red">
             <input type="button" value="Yellow" class="choose-yellow">
+        </menu>
+    </div>
+    <div id="select-mode" class="hidden">
+        <menu class="mode-menu">
+            <input type="button" value="Single Player" class="mode" id="single-player">
+            <input type="button" value="Multiplayer" class="mode" id="multiplayer">
+        </menu>
+    </div>
+    <div id="select-difficulty" class="hidden">
+        <menu class="difficulty-menu">
+            <input type="button" value="Easy" id="easy" class="difficulty-button">
+            <input type="button" value="Medium" id="medium" class="difficulty-button">
+            <input type="button" value="Hard" id="hard" class="difficulty-button">
         </menu>
     </div>
     <div id="game-board" class="game-board hidden"></div>
