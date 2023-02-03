@@ -33,12 +33,9 @@ class Game{
     addButtonListeners(){
         document.querySelector(".start-game").addEventListener("click", ()=>this.startButtonHandler())
         document.querySelector(".rules").addEventListener("click", ()=>this.rulesButtonHandler())
-        let redButtons=document.getElementsByClassName("red");
-        let yellowButtons=document.getElementsByClassName("yellow")
-        for (let i=0; i<this.columns;i++){
-            let columnNumber=redButtons[i].id.toString();
-            redButtons[i].addEventListener("click", ()=>this.placePiece("red",columnNumber))
-            yellowButtons[i].addEventListener("click", ()=>this.placePiece("yellow", columnNumber))
+        let pieceButtons=document.getElementsByClassName("game-buttons");
+        for (let i=0; i<pieceButtons.length;i++){
+            pieceButtons[i].addEventListener("click", (e)=>this.pieceButtonHandler(e))
         }
         document.querySelector(".choose-red").addEventListener("click", (e)=>this.chooseColor(e))
         document.querySelector(".choose-yellow").addEventListener("click", (e)=>this.chooseColor(e))
@@ -54,11 +51,14 @@ class Game{
     }
     rulesButtonHandler(){
         let rulesSection=document.querySelector(".rules-section");
-        if (rulesSection.classList.contains("hidden")){
-            rulesSection.classList.remove("hidden");
+        this.toggleHidden(rulesSection);
+    }
+    toggleHidden(htmlElement){
+        if (htmlElement.classList.contains("hidden")){
+            htmlElement.classList.remove("hidden");
         }
         else {
-            rulesSection.classList.add("hidden");
+            htmlElement.classList.add("hidden")
         }
     }
     startButtonHandler(){
@@ -133,6 +133,14 @@ class Game{
         }
         if (color==="yellow"){
             message.style.color="yellow"
+        }
+    }
+    pieceButtonHandler(e){
+        if (e.target.classList.contains("red")){
+            this.placePiece("red", paresInt(e.target.id));
+        }
+        if (e.target.classList.contains("yellow")){
+            this.placePiece("yellow", parseInt(e.target.id))
         }
     }
     placePiece(color, columnNumber){
