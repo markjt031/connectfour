@@ -98,20 +98,23 @@ class Game{
         let redButton=document.querySelector(".game-buttons-red");
         let yellowButton=document.querySelector(".game-buttons-yellow");
         if (e.target.classList.contains("choose-red")){
-            redButton.classList.remove("hidden");
+            this.toggleHidden(redButton);
             this.playerColorChoice="red";
         }
         if (e.target.classList.contains("choose-yellow")){
-            yellowButton.classList.remove("hidden");
+            this.toggleHidden(yellowButton);
             this.playerColorChoice="yellow";
         }
-        document.querySelector("#game-board").classList.remove("hidden");
-        document.querySelector("#select-color").classList.add("hidden");
+        this.displayGame()
+    }
+    displayGame(){
+        toggleHidden(document.querySelector("#game-board"))
+        toggleHidden(document.querySelector("#select-color"))
         this.populateGrid();
         this.displayTurnMessage(this.playerColorChoice);
-        document.querySelector("#game-message").classList.remove("hidden");
+        this.toggleHidden(document.querySelector("#game-message"))
         document.querySelector("header").style.margin="0 auto";
-        document.querySelector(".reset").classList.remove("hidden");
+        toggleHidden(document.querySelector(".reset"))
 
     }
     displayTurnMessage(color){
