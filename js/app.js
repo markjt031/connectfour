@@ -491,9 +491,11 @@ class Game{
         this.toggleHidden(document.querySelector("#start-game"))
         this.toggleHidden(document.querySelector(".reset"))
         let gameButtons=document.getElementsByClassName("game-buttons")
+        console.log(gameButtons)
         for (let i=0; i<gameButtons.length;i++){
-            if (gameButtons.classList.contains("hidden")===false){
-                this.toggleHidden(gameButtons([i]));
+            if (gameButtons[i].classList.contains("hidden")===false){
+                console.log("AAAAAA")
+                this.toggleHidden(gameButtons[i]);
             }
         }
         if (document.querySelector(".spacer").classList.contains("hidden")===false){
