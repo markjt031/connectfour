@@ -10,28 +10,29 @@
 <body>
     <header>
         <h1>Connect 4</h1>
-        <h2 id="game-message"></h2>
+        <h2 id="game-message" class="hidden"></h2>
     </header>
-
-    <div class="game-buttons game-buttons-red hidden">
-       <input type="button" class="place-piece-button red" id="0">
-        <input type="button" class="place-piece-button red" id="1">
-        <input type="button" class="place-piece-button red" id="2">
-        <input type="button" class="place-piece-button red" id="3">
-        <input type="button" class="place-piece-button red" id="4">
-        <input type="button" class="place-piece-button red" id="5">
-        <input type="button" class="place-piece-button red" id="6">
-    </div>
-    <div class="game-buttons game-buttons-yellow hidden">
-       <input type="button" class="place-piece-button yellow" id="0">
-        <input type="button" class="place-piece-button yellow" id="1">
-        <input type="button" class="place-piece-button yellow" id="2">
-        <input type="button" class="place-piece-button yellow" id="3">
-        <input type="button" class="place-piece-button yellow" id="4">
-        <input type="button" class="place-piece-button yellow" id="5">
-        <input type="button" class="place-piece-button yellow" id="6">
-    </div>
-    <div class="spacer hidden"></div>
+    <section class="piece-buttons">
+        <div class="game-buttons game-buttons-red hidden">
+        <input type="button" class="place-piece-button red" id="0">
+            <input type="button" class="place-piece-button red" id="1">
+            <input type="button" class="place-piece-button red" id="2">
+            <input type="button" class="place-piece-button red" id="3">
+            <input type="button" class="place-piece-button red" id="4">
+            <input type="button" class="place-piece-button red" id="5">
+            <input type="button" class="place-piece-button red" id="6">
+        </div>
+        <div class="game-buttons game-buttons-yellow hidden">
+        <input type="button" class="place-piece-button yellow" id="0">
+            <input type="button" class="place-piece-button yellow" id="1">
+            <input type="button" class="place-piece-button yellow" id="2">
+            <input type="button" class="place-piece-button yellow" id="3">
+            <input type="button" class="place-piece-button yellow" id="4">
+            <input type="button" class="place-piece-button yellow" id="5">
+            <input type="button" class="place-piece-button yellow" id="6">
+        </div>
+        <div class="spacer hidden"></div>
+    </section>
     <div id="start-game">
         <menu class="start-menu">
             <input type="button" value="Start Game"class="start-game">
@@ -57,7 +58,6 @@
     <div id="select-color" class="hidden">
         <p>Select the color for player 1</p>
         <menu class="color-menu">
-            
             <input type="button" value="Red" class="choose-red">
             <input type="button" value="Yellow" class="choose-yellow">
         </menu>

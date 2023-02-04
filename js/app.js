@@ -3,16 +3,16 @@ class Game{
         this.grid=[];
         this.gameWon=false;
         this.rows=6;
-        this.columns=7
-        this.board=document.getElementById("game-board")
-        this.playerColorChoice=""
+        this.columns=7;
+        this.board=document.getElementById("game-board");
+        this.playerColorChoice="";
         this.singlePlayer=false;
-        this.difficulty="easy"
-        this.placedPieces=[]
+        this.difficulty="easy";
+        this.placedPieces=[];
     }
     populateGrid(){
         for (let i=0; i<this.rows; i++){
-            let row=[]
+            let row=[];
             for(let j=0; j<this.columns; j++){
                 let htmlTile=document.createElement("div");
                 htmlTile.classList.add("tile");
@@ -31,22 +31,22 @@ class Game{
         }
     }
     addButtonListeners(){
-        document.querySelector(".start-game").addEventListener("click", ()=>this.startButtonHandler())
-        document.querySelector(".rules").addEventListener("click", ()=>this.rulesButtonHandler())
+        document.querySelector(".start-game").addEventListener("click", ()=>this.startButtonHandler());
+        document.querySelector(".rules").addEventListener("click", ()=>this.rulesButtonHandler());
         let pieceButtons=document.getElementsByClassName("game-buttons");
         for (let i=0; i<pieceButtons.length;i++){
-            pieceButtons[i].addEventListener("click", (e)=>this.pieceButtonHandler(e))
+            pieceButtons[i].addEventListener("click", (e)=>this.pieceButtonHandler(e));
         }
-        document.querySelector(".choose-red").addEventListener("click", (e)=>this.chooseColor(e))
-        document.querySelector(".choose-yellow").addEventListener("click", (e)=>this.chooseColor(e))
-        document.querySelector(".reset").addEventListener("click", ()=>this.resetBoard())
+        document.querySelector(".choose-red").addEventListener("click", (e)=>this.chooseColor(e));
+        document.querySelector(".choose-yellow").addEventListener("click", (e)=>this.chooseColor(e));
+        document.querySelector(".reset").addEventListener("click", ()=>this.resetButtonHandler());
         let modeButtons=document.getElementsByClassName("mode");
-        let difficultyButtons=document.getElementsByClassName("difficulty-button")
+        let difficultyButtons=document.getElementsByClassName("difficulty-button");
         for (let i=0; i<modeButtons.length; i++){
-            modeButtons[i].addEventListener("click", (e)=>this.modeButtonHandler(e))
+            modeButtons[i].addEventListener("click", (e)=>this.modeButtonHandler(e));
         }
         for (let i=0; i<difficultyButtons.length; i++){
-            difficultyButtons[i].addEventListener("click", (e)=>this.difficultyButtonHandler(e))
+            difficultyButtons[i].addEventListener("click", (e)=>this.difficultyButtonHandler(e));
         }
     }
     rulesButtonHandler(){
@@ -58,26 +58,26 @@ class Game{
             htmlElement.classList.remove("hidden");
         }
         else {
-            htmlElement.classList.add("hidden")
+            htmlElement.classList.add("hidden");
         }
     }
     startButtonHandler(){
         //Reveals color selection menu
-        document.querySelector("#select-mode").classList.remove("hidden");
-        document.querySelector("#start-game").classList.add("hidden");
+        this.toggleHidden(document.querySelector("#select-mode"));
+        this.toggleHidden(document.querySelector("#start-game"));
         
     }
     modeButtonHandler(e){
         if (e.target.id==="single-player"){
             this.singlePlayer=true;
-            document.querySelector("#select-difficulty").classList.remove("hidden");
+            this.toggleHidden(document.querySelector("#select-difficulty"));
             
         }
         if (e.target.id==="multiplayer"){
             this.singlePlayer===false;
-            document.querySelector("#select-color").classList.remove("hidden")
+            this.toggleHidden(document.querySelector("#select-color"));
         }
-        document.querySelector("#select-mode").classList.add("hidden");
+        this.toggleHidden(document.querySelector("#select-mode"));
        
     }
     difficultyButtonHandler(e){
@@ -91,8 +91,8 @@ class Game{
         if (e.target.id==="hard"){
             this.difficulty="medium";
         }
-        document.querySelector("#select-difficulty").classList.add("hidden");
-        document.querySelector("#select-color").classList.remove("hidden")
+        this.toggleHidden(document.querySelector("#select-difficulty"));
+        this.toggleHidden(document.querySelector("#select-color"));
     }
     chooseColor(e){
         let redButton=document.querySelector(".game-buttons-red");
@@ -105,23 +105,26 @@ class Game{
             this.toggleHidden(yellowButton);
             this.playerColorChoice="yellow";
         }
-        this.displayGame()
+        this.displayGame();
     }
     displayGame(){
-        toggleHidden(document.querySelector("#game-board"))
-        toggleHidden(document.querySelector("#select-color"))
+        this.toggleHidden(document.querySelector("#game-board"));
+        this.toggleHidden(document.querySelector("#select-color"));
+        // if (document.querySelector(".piece-buttons").classList.contains("hidden")){
+        //     this.toggleHidden(document.querySelector(".piece-buttons"));
+        // }
         this.populateGrid();
         this.displayTurnMessage(this.playerColorChoice);
-        this.toggleHidden(document.querySelector("#game-message"))
+        this.toggleHidden(document.querySelector("#game-message"));
         document.querySelector("header").style.margin="0 auto";
-        toggleHidden(document.querySelector(".reset"))
+        this.toggleHidden(document.querySelector(".reset"));
 
     }
     displayTurnMessage(color){
-        let message=document.querySelector("#game-message")
+        let message=document.querySelector("#game-message");
         if (this.singlePlayer===true){
             if (color===this.playerColorChoice){
-                message.innerText=`${color} Player: Place your piece`
+                message.innerText=`${color} Player: Place your piece`;
             }
             else {
                 message.innerText="Computer's Turn";
@@ -129,27 +132,28 @@ class Game{
             }
         }
         if (this.singlePlayer===false){
-            message.innerText=`${color} Player: Place your piece`
+            message.innerText=`${color} Player: Place your piece`;
         }
         if (color==="red"){
-            message.style.color="#FF8B8B"
+            message.style.color="#FF8B8B";
         }
         if (color==="yellow"){
-            message.style.color="yellow"
+            message.style.color="yellow";
         }
     }
     pieceButtonHandler(e){
         if (e.target.classList.contains("red")){
-            this.placePiece("red", paresInt(e.target.id));
+            this.placePiece("red", parseInt(e.target.id));
         }
         if (e.target.classList.contains("yellow")){
-            this.placePiece("yellow", parseInt(e.target.id))
+            this.placePiece("yellow", parseInt(e.target.id));
         }
     }
     placePiece(color, columnNumber){
         //Don't place a piece if the top slot is full
         if (this.grid[0][columnNumber].isEmpty===false){
-            return;
+             return;
+            
         }
         
         for (let i=this.rows-1; i>=0; i--){
@@ -157,7 +161,7 @@ class Game{
                 this.grid[i][columnNumber].color=color;
                 this.grid[i][columnNumber].isEmpty=false;
                 this.grid[i][columnNumber].htmlTile.style.backgroundColor=color;
-                this.placedPieces.push([this.grid[i][columnNumber]])
+                this.placedPieces.push([this.grid[i][columnNumber]]);
                 break;
             }
         }
@@ -172,34 +176,27 @@ class Game{
         }
     }
     playGame(){
-        this.addButtonListeners()
+        this.addButtonListeners();
     }
     takeTurns(color){
         if (this.singlePlayer===true){
             if (this.playerColorChoice==="red" && color==="red"){
-               // this.swapButtons(color, "yellow")
-                document.querySelector(".game-buttons-"+color).classList.add("hidden")
-                document.querySelector(".spacer").classList.remove("hidden")
-                this.swapButtons(color, "yellow")
+                this.swapButtons(color, "yellow");
+                this.toggleHidden(document.querySelector(".spacer"));
                 setTimeout(()=>this.computerTurn("yellow"),500);
-                
-                //this.swapButtons("yellow", color)
             }
             if (this.playerColorChoice==="red" && color==="yellow"){
-                document.querySelector(".game-buttons-"+"red").classList.remove("hidden")
-                document.querySelector(".spacer").classList.add("hidden")
-                this.swapButtons("yellow", this.playerColorChoice)
+                this.toggleHidden(document.querySelector(".spacer"));
+                this.swapButtons("yellow", this.playerColorChoice);
             }
             if (this.playerColorChoice==="yellow" && color==="yellow"){
-                //this.swapButtons(color, "red")
-                document.querySelector(".game-buttons-"+color).classList.add("hidden")
-                document.querySelector(".spacer").classList.add("hidden")
-                this.swapButtons(color, "red")
-                setTimeout(()=>this.computerTurn("red"), 500)
+                this.swapButtons(color, "red");
+                this.toggleHidden(document.querySelector(".spacer"));
+                setTimeout(()=>this.computerTurn("red"), 500);
             }
             if (this.playerColorChoice==="yellow" && color==="red"){
-                document.querySelector(".game-buttons-"+"yellow").classList.remove("hidden")
-                this.swapButtons("red", this.playerColorChoice)
+                this.toggleHidden(document.querySelector(".spacer"));
+                this.swapButtons("red", this.playerColorChoice);
             }
         }
         else{
@@ -207,7 +204,7 @@ class Game{
                 this.swapButtons(color,"yellow");
             }
             if (color==="yellow"){
-                this.swapButtons(color, "red")
+                this.swapButtons(color, "red");
             }
         }
         
@@ -221,45 +218,59 @@ class Game{
         }
         
         if (this.difficulty==="medium"){
-            let available=[]
-            let threats=[]
-            let wins=[]
+            let available=[];
+            let threats=[];
+            let wins=[];
             let place=0;
             if (color==="red"){
-                threats=this.threeInARow("yellow")
-                wins=this.threeInARow(color)
+                threats=this.threeInARow("yellow");
+                wins=this.threeInARow(color);
             }
             if (color==="yellow"){
                 threats=this.threeInARow("red");
-                wins=this.threeInARow(color)
+                wins=this.threeInARow(color);
             }
             if (wins.length>0){
-                place=wins[Math.floor(Math.random()*wins.length)]
-                this.placePiece(color, place);
-
+                place=wins[Math.floor(Math.random()*wins.length)];
+                if (this.grid[0][place].isEmpty===true){
+                    this.placePiece(color, place);
+                }
             }
             
             else if (threats.length>0){
-                place=threats[Math.floor(Math.random()*threats.length)]
-                this.placePiece(color, place)
+                place=threats[Math.floor(Math.random()*threats.length)];
+                if (this.grid[0][place].isEmpty===true){
+                    this.placePiece(color, place);
+                }
             }
             else if (this.placedPieces.length>0) {
                 for (let i=0; i<this.placedPieces.length; i++){
                     //Place pieces next to other yellow
                     if (this.placedPieces[i].color==="yellow"){
-                        available=this.checkAvailable(placedPieces[i])
+                        available=this.checkAvailable(placedPieces[i]);
                         if (available.length>0){
-                            this.placePiece(color, available[Math.floor(Math.random()*available.length)])
-                            break;
+                            place=available[Math.floor(Math.random()*available.length)]
+                            if (this.grid[0][place].isEmpty===true){
+                                this.placePiece(color, place);
+                                break;
+                            }
+                            
                         }
                         else{
-                            this.placePiece(color, Math.floor(Math.random()*this.columns))
-                            break;
+                            place=Math.floor(Math.random()*this.columns)
+                            if (this.grid[0][place].isEmpty===true){
+                                this.placePiece(color, place);
+                                break;
+                            }
+                            
                         }
                     }
                     else {
-                        this.placePiece(color, Math.floor(Math.random()*this.columns));
-                        break;
+                        place=Math.floor(Math.random()*this.columns)
+                        if (this.grid[0][place].isEmpty===true){
+                            this.placePiece(color, place);
+                            break;
+                        }
                     }
                     
                 }
@@ -267,14 +278,14 @@ class Game{
         }
    }
    checkAvailable(piece){
-        let available=[]
+        let available=[];
         for (let i=0; i<piece.neighbors; i++){
             //If neighbor is empty
             if (this.grid[piece.neighbors[i][0]][piece.neighbors[i][1]].isEmpty){
                 //If spot below is filled or the neighbor is at the bottom
                 if ((piece.neighbors[i][0]+1)<=5 && (this.grid[piece.neighbors[i][0]+1][piece.neighbors[0][1]].isEmpty===false)|| piece.neighbors[i][0]+1===6){
                     //push the column number
-                    available.push(piece.neighbors[i][1])
+                    available.push(piece.neighbors[i][1]);
                 }
             }
         return available;
@@ -283,20 +294,18 @@ class Game{
     swapButtons(color1, color2){
         let buttonSetOriginal=document.querySelector(".game-buttons-"+color1);
         let buttonSetNew=document.querySelector(".game-buttons-"+color2);
-        this.displayTurnMessage(color2)
+        this.displayTurnMessage(color2);
         if (this.singlePlayer===true){
             if (color2===this.playerColorChoice){
-                buttonSetNew.classList.remove("hidden");
+                this.toggleHidden(buttonSetNew);
             }
-            
             else {
-                buttonSetOriginal.classList.add("hidden")
+                this.toggleHidden(buttonSetOriginal);
             }
-            
         }
         else{
-            buttonSetOriginal.classList.add("hidden");
-            buttonSetNew.classList.remove("hidden")
+            this.toggleHidden(buttonSetOriginal);
+            this.toggleHidden(buttonSetNew);
         }
     }
 
@@ -340,7 +349,7 @@ class Game{
         
     }
     threeInARow(color){
-        let places=[]
+        let places=[];
         for (let i=this.rows-1; i>=0; i--){
             for (let j=this.columns-1; j>=0; j--){
                 if (this.grid[i][j].color===color){
@@ -354,11 +363,11 @@ class Game{
                                     //Check if spot beneath winning spot is full
                                     if (i+1<this.rows){
                                         if(this.grid[i+1][j+1].isEmpty==false){
-                                            places.push(j+1)
+                                            places.push(j+1);
                                         }
                                     }
                                     if (i===this.rows-1){
-                                        places.push(j+1)
+                                        places.push(j+1);
                                     }
                                 }
                             }
@@ -372,7 +381,7 @@ class Game{
                                         }
                                     }
                                     if (i===this.rows-1){
-                                        places.push(j-3)
+                                        places.push(j-3);
                                     }
                                 }
                             }
@@ -381,19 +390,19 @@ class Game{
                         if(i-3>=0){
                             if (this.grid[i-1][j-1].color===color && this.grid[i-2][j-2].color===color){
                                 if (i+1===this.rows-1 && j+1<this.columns){
-                                    places.push(j+1)
+                                    places.push(j+1);
                                 }
                                 if (i+1<this.rows && j+1<this.columns){
                                     if(this.grid[i+1][j+1].isEmpty){
                                         if (this.grid[i][j+1].isEmpty===false){
-                                            places.push(j+1) 
+                                            places.push(j+1);
                                         }
                                     }
                                 }
                                 if (j-3>=0){
                                     if (this.grid[i-2][j-3].isEmpty===false){
                                         if(this.grid[i-3][j-3].isEmpty===true){
-                                            places.push(j-3)
+                                            places.push(j-3);
                                         }
                                     }
                                 }
@@ -403,7 +412,7 @@ class Game{
                     if (i-3>=0){
                         //Vertical
                         if (this.grid[i-1][j].color===color && this.grid[i-2][j].color===color && this.grid[i-3][j].isEmpty===true){
-                            places.push(j)
+                            places.push(j);
                         }
 
 
@@ -414,15 +423,17 @@ class Game{
                                     places.push(j-1);
                                 }
                                 if(i+1<this.rows){
-                                    if(this.grid[i+1][j-1].isEmpty){
-                                        if (this.grid[i][j-1].isEmpty===false){
-                                            places.push(j-1);
+                                    if (j-1>0){
+                                        if(this.grid[i+1][j-1].isEmpty){
+                                            if (this.grid[i][j-1].isEmpty===false){
+                                                places.push(j-1);
+                                            }
+                                        }
                                     }
-                                }
-                                }
+                                    }
                                 if (this.grid[i-2][j+3].isEmpty===false){
                                     if(this.grid[i-3][j+3].isEmpty===true){
-                                        places.push(j+3)
+                                        places.push(j+3);
                                     }
                                 }
                             }
@@ -437,46 +448,45 @@ class Game{
     }
 
     winMessage(color){
-        
         if (this.gameWon===true){
-            document.querySelector("#game-message").innerText=`${color} wins!`
+            document.querySelector("#game-message").innerText=`${color} wins!`;
             if (color==="red"){
-                document.querySelector("#game-message").style.color="#FF8B8B"
+                document.querySelector("#game-message").style.color="#FF8B8B";
             }
             if (color==="yellow"){
-                document.querySelector("#game-message").style.color="yellow"
+                document.querySelector("#game-message").style.color="yellow";
             }
         }
     }
     endGame(){
         if (this.gameWon===true){
-            let buttons=document.getElementsByClassName("game-buttons")
-            for(let i=0; i<buttons.length; i++){
+           let buttons=document.getElementsByClassName("game-buttons");
+           for (let i=0; i<buttons.length;i++){
                 if (buttons[i].classList.contains("hidden")===false){
-                    buttons[i].classList.add("hidden");
+                    this.toggleHidden(buttons[i])
                 }
-                
-            }
-            document.querySelector(".spacer").classList.remove("hidden");
+           }
         }
+    }
+    resetButtonHandler(){
+        this.resetBoard();
     }
     resetBoard(){
         this.grid=[]
         this.placedPieces=[]
         this.clearGrid();
-        // if (this.singlePlayer===true){
-        //     document.querySelector(".game-buttons").classList.add("hidden")
-        // }
         this.singlePlayer=false;
         this.gameWon=false;
         this.difficulty="easy"
         this.playerColorChoice=""
-        document.querySelector("#game-board").classList.add("hidden")
+        this.toggleHidden(document.querySelector("#game-board"))
         document.querySelector("header").style.margin="20% auto 0 auto"
-        document.querySelector("#game-message").classList.add("hidden")
-        document.querySelector("#start-game").classList.remove("hidden")
-        document.querySelector(".reset").classList.add("hidden")
-        document.querySelector(".spacer").classList.add("hidden")
+        this.toggleHidden(document.querySelector("#game-message"))
+        this.toggleHidden(document.querySelector("#start-game"))
+        this.toggleHidden(document.querySelector(".reset"))
+        if (document.querySelector(".spacer").classList.contains("hidden")===false){
+            this.toggleHidden(document.querySelector(".spacer"));
+        }
         
     }
 
