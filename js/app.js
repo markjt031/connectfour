@@ -209,9 +209,7 @@ class Game{
         }
         
     }   
-    
 
-   
     computerTurn(color){
         if (this.difficulty==="easy"){
             this.placePiece(color, Math.floor(Math.random()*this.columns));
@@ -230,8 +228,11 @@ class Game{
                 threats=this.threeInARow("red");
                 wins=this.threeInARow(color);
             }
+            console.log(wins)
+            console.log(threats)
             if (wins.length>0){
                 place=wins[Math.floor(Math.random()*wins.length)];
+                console.log(this.grid[0][place]);
                 if (this.grid[0][place].isEmpty===true){
                     this.placePiece(color, place);
                 }
@@ -360,28 +361,30 @@ class Game{
                             if (j+1<this.columns){
                                 //Check if winning spot is empty
                                 if (this.grid[i][j+1].isEmpty===true){
+                                    if (i===this.rows-1){
+                                        places.push(j+1);
+                                    }
                                     //Check if spot beneath winning spot is full
                                     if (i+1<this.rows){
                                         if(this.grid[i+1][j+1].isEmpty==false){
                                             places.push(j+1);
                                         }
                                     }
-                                    if (i===this.rows-1){
-                                        places.push(j+1);
-                                    }
+                                    
                                 }
                             }
                             if (j-3>=0){
                                 //Check if winning spot is empty
                                 if (this.grid[i][j-3].isEmpty===true){
-                                    //Check if spot beneath winning spot is full
-                                    if (i+1<this.rows){
-                                        if (this.grid[i+1][j+1].isEmpty===false){
-                                            places.push(j-3);
-                                        }
-                                    }
+                                    
                                     if (i===this.rows-1){
                                         places.push(j-3);
+                                    }
+                                    //Check if spot beneath winning spot is full
+                                    if (i+1<this.rows){
+                                        if (this.grid[i+1][j-1].isEmpty===false){
+                                            places.push(j-3);
+                                        }
                                     }
                                 }
                             }
@@ -420,17 +423,19 @@ class Game{
                         if (j+3<=6){
                             if (this.grid[i-1][j+1].color===color&& this.grid[i-2][j+2].color===color){
                                 if(i+1===this.rows-1){
-                                    places.push(j-1);
+                                    if (j-1>=0){
+                                        places.push(j-1);
+                                    }
                                 }
                                 if(i+1<this.rows){
-                                    if (j-1>0){
+                                    if (j-1>=0){
                                         if(this.grid[i+1][j-1].isEmpty){
                                             if (this.grid[i][j-1].isEmpty===false){
                                                 places.push(j-1);
                                             }
                                         }
                                     }
-                                    }
+                                }
                                 if (this.grid[i-2][j+3].isEmpty===false){
                                     if(this.grid[i-3][j+3].isEmpty===true){
                                         places.push(j+3);
