@@ -88,6 +88,10 @@ menu{
     margin: 0 auto;
     padding: none;
     border-radius: 50%;
+    animation-duration: 1s;
+}
+.drop{
+
 }
 .spacer{
     width: 40%;
@@ -120,5 +124,7 @@ menu{
     padding: none;
     border-radius: 50%;
 }
-
+@keyframes drop{
+    
+}
 

@@ -162,6 +162,7 @@ class Game{
                 this.grid[i][columnNumber].isEmpty=false;
                 this.grid[i][columnNumber].htmlTile.style.backgroundColor=color;
                 this.placedPieces.push([this.grid[i][columnNumber]]);
+                //this.animatePiece(color, columnNumber, i);
                 break;
             }
         }
@@ -247,8 +248,8 @@ class Game{
             }
             else if (this.placedPieces.length>0) {
                 for (let i=0; i<this.placedPieces.length; i++){
-                    //Place pieces next to other yellow
-                    if (this.placedPieces[i].color==="yellow"){
+                    //Place pieces next to 
+                    if (this.placedPieces[i].color===color){
                         available=this.checkAvailable(placedPieces[i]);
                         if (available.length>0){
                             place=available[Math.floor(Math.random()*available.length)]
@@ -279,6 +280,7 @@ class Game{
             }
         }
    }
+
    checkAvailable(piece){
         let available=[];
         for (let i=0; i<piece.neighbors; i++){
@@ -394,7 +396,9 @@ class Game{
                         if(i-3>=0){
                             if (this.grid[i-1][j-1].color===color && this.grid[i-2][j-2].color===color){
                                 if (i+1===this.rows-1 && j+1<this.columns){
-                                    places.push(j+1);
+                                    if (this.grid[i+1][j+1].isEmpty){
+                                        places.push(j+1);
+                                    }
                                 }
                                 if (i+1<this.rows && j+1<this.columns){
                                     if(this.grid[i+1][j+1].isEmpty){
@@ -474,6 +478,21 @@ class Game{
            }
         }
     }
+    // animatePiece(color, column, row){
+    //     let pieces=document.getElementsByClassName(color);
+    //     let piece=null;
+    //     for (let i=0; i<pieces.length; i++){
+    //         if (parseInt(pieces[i].id)===column){
+    //             piece=pieces[i]
+    //         }
+    //     }
+    //     let board=document.querySelector("#game-board");
+    //     let boardStyle=getComputedStyle(board);
+    //     let boardHeight=parseInt(boardStyle.height.replace("px",""))
+    //     let rowHeight=boardHeight/6;
+    //     piece.style.backgroundColor="red";
+
+    // }
     resetButtonHandler(){
         this.resetBoard();
     }
@@ -494,7 +513,6 @@ class Game{
         console.log(gameButtons)
         for (let i=0; i<gameButtons.length;i++){
             if (gameButtons[i].classList.contains("hidden")===false){
-                console.log("AAAAAA")
                 this.toggleHidden(gameButtons[i]);
             }
         }
