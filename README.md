@@ -1,4 +1,4 @@
-# project1
+# Connect Four
 
 ## Project Choice (Tell us which project you're doing!)
 > 
